@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:id="@+id/activity_map_land"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bw_gradient_background_light"
+              android:orientation="horizontal"
+              tools:context=".MapActivity">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/app_bar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top"
+        android:visibility="visible"
+        tools:ignore="IncludeLayoutParam"/>
+
+    <FrameLayout
+        android:id="@+id/celltower-info-short"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|bottom|left|right"
+        android:layout_weight="1"
+        android:background="@color/red"/>
+
+    <FrameLayout
+        android:id="@+id/celltowers-map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|bottom|left|right"
+        android:layout_weight="8"
+        android:background="@color/darkGreen"/>
+
+
+</LinearLayout>

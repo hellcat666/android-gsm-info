@@ -1,0 +1,105 @@
+Project android-gsm-info
+
+1. Global Description
+The application android-gsm-info is a Mobile Application, running on Android devices
+and providing the following functionalities:
+
+- Detection of the GSM CellTower the Device is currently connected to.
+  CellTowers detection is restricted to those of the provider of the SIMCard 
+  installed in the device (e.g SwissCom, Sunrise, ...)
+
+- Display of the current GSM CellTower information (CId, Lac, MNC, MCC, Signal Strength, GPS Location/Address).
+
+- Display of the CellTowers currently stored in Database, as icons on a GoogleMap layer, 
+  according to their GPS Location.
+  
+- GPS Location/Address information are retrieved through the call of a PHP Web Service 
+  freely supplied by unwiredlabs.com (as long as you don't exceed 100 queries per day).
+
+  
+2. Detailed Description
+
+	2.1 CellTower Information.
+	A CellTower (AKA BTS) is an equipment that lets Smartphones connect to the GSM Network.
+
+	As for our Application, it is defined by the following data:
+
+		- CId	Unique number used to identify each Base Transceiver Station (BTS) 
+				or sector of a BTS within a Location area code.
+				
+		- Lac	Location Area Code is a unique number of current location area. 
+				A location area is a set of base stations that are grouped together to optimize signalling.
+				
+		- MCC	Mobile Country Code. This code identifies the country. 
+				For example, in Switzerland MCC is equal to 228, in USA - 310, France - 208, Spain - 214.
+				
+		- MNC	Mobile Network Code. This code identifies the Network Operator
+				For example, in Switzerland the MNC is equal to 01 for Swisscom, 02 for Sunrise and 03 for Salt.
+	
+	2.2 Database
+	Concerning the Database, it is very simple and rely on a unique Table called CELLTOWERS 
+	and structured as follows:
+	
+		CID				INT				
+		LAC				INT
+		MCC				INT
+		MNC				INT
+		NETWORK_TYPE	VARCHAR(10)
+		PROVIDER_NAME	VARCHAR(25)
+		
+		LATITUDE		FLOAT
+		LONGITUDE		FLOAT
+		ALTITUDE		FLOAT
+		ACCURACY		INT
+		Address			VARCHAR(128)
+
+	CID, LAC, MCC, MNC, NETWORK_TYPE AND PROVIDER_NAME are available from the device, 
+	while Location information can be obtained form external sources (e.g unwiredlabs.com)
+	
+	2.3 Application
+	
+	Like most Software application, this mobile application consists in a User Interface (UI) 
+	and some non-visible modules performing background tasks.
+	In order to keep Object independent to each other and to improve re-usability, 
+	most of the communication is performed through messaging.
+	
+		2.3.1 UI Description
+		The UI consists in the following two Screens:
+			- StartUpActivity:	The StartUpActivity is the initial Activity of the App.
+								. Simply displays a splash screen. 
+								. Responsible for the App. Initialization Sequence.
+								. Launch MapActivty once initialization is done.
+			- MapActivity:		The main Activity of the App.
+								. It displays the information related to the current BTS.
+								. It displays known BTS (already defined in Database) on 
+								  a GoogleMap layer. 
+		
+		2.3.2 Modules (Code) Description
+		The modules can be grouped in two categories:
+			- UI-Code Modules (related to UI): This modules contain the code related to the UI Components.
+								. FragCellTowerInfo : Code related to  the fragment frag_cell_tower_info
+								. FragCelTowersMap : Code related to the fragment frag_celltowers_map
+								. FragCellTowerInfoExt and FragCellTowersList are not used in the App.
+								
+			- Processing Code Modules : Performs background tasks such as BTS data retrieval and storage.
+								. CellTower : Encapsulates the CellTower Data.
+								. CellTowerDB : Along with CellTowerDBAdapter and DatabaseHelper, it takes 
+												in charge Database Operations.
+								. CellTowerInfoWindow : Manages the CellTower Info Window used by GoogleMap to
+														display detailed information about the selected CellTower.
+								. CellTowerLocation : Encapsulates the CellTower Location Data.
+								. CellTowerLocationService : In Charge of the communication with the BTS Location service
+															 supplied by unwiredlabs.com.
+								. CellTowersAdapter : Adapter used to display the CellTower Data as a List.
+													  It is currently unused.
+								. CellTowersScanner : In charge of the detection of the current CellTower (that is, the one
+													  the device is currently connected to). It supplies the currentCellTower 
+													  data such as CId, Lac, MCC, etc ...
+								. DialogInfoOK : Manage the DialogBox which is displayed when the device is detected 
+												 as not connected to the GSM Network (e.g when in Flight Mode). 
+												 A click on the OK button causes the App. to exit.
+													  		
+			
+		
+
+  

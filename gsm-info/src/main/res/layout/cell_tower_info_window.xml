@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/frag_cell_tower_info_window"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/infobkg"
+        android:gravity="left|right">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lblCellTowerInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_weight="1"
+                    android:background="@color/darkGray"
+                    android:text="@string/celltower_info_title"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lblCid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"
+                    android:text="@string/cid_label"/>
+
+                <TextView
+                    android:id="@+id/txtCid"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"/>
+
+                <TextView
+                    android:id="@+id/lblLac"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"
+                    android:text="@string/lac_label"/>
+
+                <TextView
+                    android:id="@+id/txtLac"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lblMcc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"
+                    android:text="@string/mcc_label"/>
+
+                <TextView
+                    android:id="@+id/txtMcc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"/>
+
+                <TextView
+                    android:id="@+id/lblMnc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"
+                    android:text="@string/mnc_label"/>
+
+                <TextView
+                    android:id="@+id/txtMnc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/lblLat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"
+                    android:text="@string/latitude_label"/>
+
+                <TextView
+                    android:id="@+id/txtLat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"/>
+
+                <TextView
+                    android:id="@+id/lblLng"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"
+                    android:text="@string/longitude_label"/>
+
+                <TextView
+                    android:id="@+id/txtLng"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/lightGray"/>
+
+            </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"
+                android:background="@color/lightGray"
+                android:text="@string/address_label"/>
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".75"
+                android:background="@color/lightGray"/>
+        </TableRow>
+
+        </TableLayout>
+
+</RelativeLayout>

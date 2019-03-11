@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/frag_cell_tower_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:background="@android:color/transparent"
+                android:orientation="vertical">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="1dp"
+        android:gravity="top|bottom|left|right">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblCurrentCellTowerInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_weight="1"
+                android:background="@color/darkGray"
+                android:text="@string/current_celltower_info_title"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblCellId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"
+                android:text="@string/cid_label"/>
+
+            <TextView
+                android:id="@+id/txtCellId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
+
+            <TextView
+                android:id="@+id/lblLocationAreaCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"
+                android:text="@string/lac_label"/>
+
+            <TextView
+                android:id="@+id/txtLocationAreaCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                          xmlns:tools="http://schemas.android.com/tools"
+                          android:id="@+id/layoutInfoLine2"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_alignBottom="@+id/layoutInfoLine1"
+                          android:layout_weight="1"
+                          android:background="@android:color/transparent" -->
+
+            <TextView
+                android:id="@+id/lblMobileNetworkOperator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"
+                android:text="@string/mcc_mnc_label"/>
+
+            <TextView
+                android:id="@+id/txtMobileNetworkOperator"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
+
+            <TextView
+                android:id="@+id/lblSignalStrength"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"
+                android:text="@string/sig_dbm_label"/>
+
+            <TextView
+                android:id="@+id/txtSignalStrength"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
+
+            <!-- /LinearLayout -->
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblNetworkType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"
+                android:text="@string/network_label"/>
+
+            <TextView
+                android:id="@+id/txtNetworkType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
+
+            <TextView
+                android:id="@+id/lblOperatorName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"
+                android:text="@string/operator_label"/>
+
+            <TextView
+                android:id="@+id/txtOperatorName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

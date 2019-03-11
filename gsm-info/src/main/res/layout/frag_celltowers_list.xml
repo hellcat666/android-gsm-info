@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/frag_sim_contacts_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/lblCellTowersList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:background="@color/darkGray"
+        android:text="Cell Towers"
+        android:textStyle="bold"/>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  xmlns:tools="http://schemas.android.com/tools"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@android:color/transparent">
+
+        <TextView
+            android:id="@+id/lblCellTowerId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/lightGray"
+            android:text="CId"/>
+
+        <TextView
+            android:id="@+id/lblCellTowerLac"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/lightGray"
+            android:text="Lac"/>
+
+        <TextView
+            android:id="@+id/lblCellTowerMCC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/lightGray"
+            android:text="MCC"/>
+
+        <TextView
+            android:id="@+id/lblCellTowerMNC"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/lightGray"
+            android:text="MNC"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvCellTowers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:background="@android:color/transparent"
+        android:drawSelectorOnTop="false"
+        android:listSelector="@color/white"
+        android:scrollbarAlwaysDrawVerticalTrack="true">
+    </ListView>
+
+
+    <!-- TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:background="@android:color/transparent"
+        android:gravity="top|bottom|left|right">>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:id="@+id/lblCellTowersList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"
+                android:text="Cell Towers"
+                android:textStyle="bold"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="1dp"
+                    android:background="@drawable/background_border_gray">
+
+                    <TextView
+                        android:id="@+id/lblCellTowerId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_centerInParent="true"
+                        android:background="@color/red"
+                        android:text="CId"/>
+
+                    <TextView
+                        android:id="@+id/lblCellTowerLac"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_centerInParent="true"
+                        android:background="@color/green"
+                        android:text="Lac"/>
+
+                    <TextView
+                        android:id="@+id/lblCellTowerMCC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_centerInParent="true"
+                        android:background="@color/blue"
+                        android:text="MCC"/>
+
+                    <TextView
+                        android:id="@+id/lblCellTowerMNC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_centerInParent="true"
+                        android:background="@color/yellow"
+                        android:text="MNC"/>
+                </TableRow>
+            </TableLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/background_border_gray">
+
+            <ListView
+                android:id="@+id/lvCellTowers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:background="@android:color/transparent"
+                android:drawSelectorOnTop="false"
+                android:listSelector="@color/white"
+                android:scrollbarAlwaysDrawVerticalTrack="true">
+            </ListView>
+
+        </TableRow>
+
+    </TableLayout -->
+
+</LinearLayout>

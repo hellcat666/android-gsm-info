@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/frag_cell_tower_info_ext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginTop="1dp"
+        android:gravity="top|bottom|left|right">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblCellId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cell ID (cid)"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtCellId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/lblLocationAreaCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="LAC"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtLocationAreaCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/lblMobileCountryCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MCC"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtMobileCountryCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblMobileNetworkCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="MNC"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtMobileNetworkCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblNetworkType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Network Type"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtNetworkType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblOperatorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Operator Name"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtOperatorName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblLatitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Latitude"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtLatitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblLongitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Longitude"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtLongitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblAltitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Altitude"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtAltitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblAccuracy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Accuracy"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtAccuracy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Address"
+                android:textAllCaps="false"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/txtAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

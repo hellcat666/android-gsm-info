@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">GSM Info</string>
+    <string name="title_appbar_gsm_info">GSM Info Ver. 1.5</string>
+    <string name="device_offline_error">Device is currently offline.\nExiting...</string>
+    <string name="title_activity_map">Map</string>
+    <string name="not_available">n.a</string>
+    <string name="initializing">Initializing ...</string>
+    <string name="current_celltower_info_title">Current Cell Tower Info</string>
+    <string name="celltower_info_title">Cell Tower Info</string>
+    <string name="cid_label">CId</string>
+    <string name="lac_label">Lac</string>
+    <string name="mcc_mnc_label">MCC/MNC</string>
+    <string name="mcc_label">MCC</string>
+    <string name="mnc_label">MNC</string>
+    <string name="sig_dbm_label">Sig. (dbm)</string>
+    <string name="network_label">Network</string>
+    <string name="operator_label">Operator</string>
+    <string name="latitude_label">Latitude</string>
+    <string name="longitude_label">Longitude</string>
+    <string name="altitude_label">Altitude</string>
+    <string name="address_label">Address</string>
+    <string name="ok_button_label">OK</string>
+    <string name="cancel_button_label">Cancel</string>
+
+    <string name="db_name">celltowers.db</string>
+    <!-- GMap API Project 1 -->
+    <string name="google_maps_key">AIzaSyCdaWN1Dv-b0vxIjnPwhctKj0vEl5HZ33Q</string>
+
+</resources>
+
