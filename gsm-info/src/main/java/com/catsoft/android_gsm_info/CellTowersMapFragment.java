@@ -37,6 +37,8 @@ import java.util.ArrayList;
  * Package: com.catsoft.android_gsm_info
  * File:
  * Created by HellCat on 13.04.2018.
+ * Modified by HellCat:
+ *  25.03.2019 - setCellTowersList(...): Disable (comment out) MapBound Testing.
  */
 
 public class CellTowersMapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
@@ -319,13 +321,13 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
     private void setCellTowersList(Intent intent) {
     MapCellTower mapCellTower = null;
 
-        mMapBounds = mMap.getProjection().getVisibleRegion().latLngBounds;
+//        mMapBounds = mMap.getProjection().getVisibleRegion().latLngBounds;
         mMapCellTowers.clear();
         ArrayList<CellTower> cellTowers = intent.getParcelableArrayListExtra(CELLS);
         for(int idx=0; idx<cellTowers.size(); idx++) {
             CellTower cell = cellTowers.get(idx);
             mapCellTower = (new MapCellTower(cell));
-            if ((mMapBounds != null) && mMapBounds.contains(mapCellTower.getLatLong())) {
+//            if ((mMapBounds != null) && mMapBounds.contains(mapCellTower.getLatLong())) {
                 if (mCurrentCellTower != null) {
                     if (mCurrentCellTower.equals(cell)) {
                         Log.i(TAG, "Cells match with CIds: " + String.valueOf(mCurrentCellTower.getCId()) + " / " + String.valueOf(cell.getCId()));
@@ -339,7 +341,7 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
                     }
                     mMapCellTowers.add(mapCellTower);
                 }
-            }
+//            }
         }
     }
 

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">GSM Info</string>
-    <string name="title_appbar_gsm_info">GSM Info Ver. 1.5</string>
+    <string name="title_appbar_gsm_info">GSM Info Ver. 1.2.0</string>
+    <string name="verion">1.2.0</string>
     <string name="device_offline_error">Device is currently offline.\nExiting...</string>
     <string name="title_activity_map">Map</string>
     <string name="not_available">n.a</string>
