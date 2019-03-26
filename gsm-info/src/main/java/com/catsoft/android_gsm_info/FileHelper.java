@@ -20,6 +20,33 @@ import java.nio.channels.FileChannel;
  *
  */
 public class FileHelper {
+
+    public static void createDir(String directory) {
+        File file = new File(directory);
+        if(!file.exists()) {
+            file.mkdirs();
+        }
+    }
+
+    public static void createFile(String filename) {
+        File file = new File(filename);
+        File parent = file.getParentFile();
+        if(!parent.exists() && !parent.mkdirs()) {
+            throw new IllegalStateException("Couldn't create dir: " + parent);
+        }
+    }
+
+    /**
+     * Check if the given file exists
+     */
+    public static boolean fileExists(String filename) {
+        File file = new File(filename);
+        if((file==null) || !file.exists()) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Creates the specified <i><b>toFile</b></i> that is a byte for byte a copy
      * of <i><b>fromFile</b></i>. If <i><b>toFile</b></i> already existed, then

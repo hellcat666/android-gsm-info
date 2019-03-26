@@ -192,7 +192,6 @@ public class StartUpActivity extends AppCompatActivity {
     private void setCellTowerDB() {
         mSplashTextView.setText("Loading Database ...");
         mCellTowerDB = new CellTowerDB(mContext, mContext.getString(R.string.db_name), null, 1);
-        mCellTowerDB.open();
     }
 
     /**

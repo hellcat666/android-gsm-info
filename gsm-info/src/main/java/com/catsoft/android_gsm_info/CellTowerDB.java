@@ -5,12 +5,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 /**
@@ -36,6 +40,10 @@ public class CellTowerDB  extends SQLiteOpenHelper {
     private static final String TAG = "GSMInfo-CellTowerDB";
 
     // Constants
+    private static final String DB_DIR = "/databases";
+    private static String DB_PATH = "/data/data/" + BuildConfig.APPLICATION_ID + DB_DIR;
+    private static final String DB_NAME = "celltowers.db";
+    private static String DB_FULLPATH = DB_PATH + "/" + DB_NAME;
     private static final String CELLTOWERS_DB_READY = "celltowers-db-ready";
     private static final String EXIT = "exit";
 
@@ -151,10 +159,13 @@ public class CellTowerDB  extends SQLiteOpenHelper {
 
         // Set Context
         mContext = context;
-        mDBPath = mContext.getFilesDir().getPath();
-        mDBPath = mDBPath.substring(0, mDBPath.lastIndexOf("/")) + "/databases";
-        mDBName = dbname;
-        mDBFullName = mDBPath + "/" + mDBName;
+
+        mDBPath = DB_PATH;              // mDBPath.substring(0, mDBPath.lastIndexOf("/")) + "/databases";
+        mDBName = DB_NAME;              // dbname;
+        mDBFullName = DB_FULLPATH;      // mDBPath + "/" + mDBName;
+
+        // Setup Database File according to the one in "assets" Folder
+        setDBFile();
 
         // Open the Database
         if(this.open()==true) {
@@ -198,6 +209,42 @@ public class CellTowerDB  extends SQLiteOpenHelper {
     }
 
     /**
+     * Set Database File.
+     * Check if DB File already exists in App "databases" directory
+     * If not (1st App. runs) copy DB File from "assets" directory into App "databases"+ directory
+     *
+     */
+    private boolean dbFileExists() {
+        if(!FileHelper.fileExists(mDBFullName)) {
+            return false;
+        }
+        return true;
+    }
+
+    private void setDBFile() {
+
+        if(!dbFileExists()) {
+            Log.i(TAG, "DB File doesn\'t exist.");
+            InputStream in = null;
+            OutputStream out = null;
+            FileHelper.createDir(DB_PATH);
+            FileHelper.createFile(mDBFullName);
+            AssetManager assetManager = mContext.getAssets();
+            try {
+                in = assetManager.open(DB_NAME);
+                out = new FileOutputStream(mDBFullName);
+                FileHelper.copyFile(in, out);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            Log.i(TAG, "DB File already exists.");
+        }
+    }
+
+    /**
      * Initialize the Database Object
      * Open the Database
      * Create CellTowers Table if needed
@@ -207,8 +254,6 @@ public class CellTowerDB  extends SQLiteOpenHelper {
         mDatabase = this.getWritableDatabase().openDatabase(mDBFullName, null, SQLiteDatabase.CREATE_IF_NECESSARY);
 
         if((mDatabase!=null) && (mDatabase.isOpen())) {
-//            mDatabase.execSQL(CREATE_TABLE_CELLTOWERS);
-//            mDatabase.execSQL(INSERT_TABLE_CELLTOWER_TEST_DATA);
             if((this.select()!=null) && (mCellTowers.size()>0)) {
                 Intent aListIntent = new Intent();
                 aListIntent.setAction(CELLTOWERS_LIST);
@@ -231,7 +276,7 @@ public class CellTowerDB  extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_CELLTOWERS);
+//        db.execSQL(CREATE_TABLE_CELLTOWERS);
 //        db.execSQL(INSERT_TABLE_CELLTOWER_TEST_DATA);
     }
 

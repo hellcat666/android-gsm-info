@@ -43,7 +43,7 @@ import java.util.ArrayList;
 
 public class CellTowersMapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = "GSMInfo-FragCellTowersMap";
+    private static final String TAG = "FragCellTowersMap";
 
     private static final String FRAG_CELLTOWERS_MAP = "frag-celltowers-map";
     private static final String FRAGMENT_MAP_READY = "fragment-map-ready";
@@ -452,6 +452,7 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
         });
 
     }
+
     private void showToast(final String msg){
         //gets the main thread
         Handler handler = new Handler(Looper.getMainLooper());
