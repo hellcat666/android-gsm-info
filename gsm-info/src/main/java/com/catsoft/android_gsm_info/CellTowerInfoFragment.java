@@ -88,7 +88,6 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
         mSignalStrengthTextView = getActivity().findViewById(R.id.txtSignalStrength);
         mNetworkTypeTextView = getActivity().findViewById(R.id.txtNetworkType);
         mOperatorNameTextView = getActivity().findViewById(R.id.txtOperatorName);
-
         mSavedInstanceState = savedInstanceState;
     }
 
@@ -176,14 +175,16 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
             try {
                 mContext.unregisterReceiver(mMessageReceiver);
                 mReceiverRegistered = false;
-            } catch (Exception ex) {
-            } finally {
+            }
+            catch (Exception ex) {
+            }
+            finally {
             }
         }
     }
 
     private void requestCurrentCellTower() {
-        Log.i(TAG, "requestCurrentCellTower()");
+//        Log.i(TAG, "requestCurrentCellTower()");
         Intent anIntent = new Intent();
         anIntent.setAction(REQUEST_CURRENT_CELLTOWER);
         mContext.sendBroadcast(anIntent);
@@ -195,6 +196,7 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
     }
 
     protected void refresh() {
+        clearCellTowerInfo();
         refreshCellTowerInfo();
         Intent anIntent = new Intent();
         if(mCurrentCellTower!=null) {
@@ -204,16 +206,23 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
         }
     }
 
+    protected void clearCellTowerInfo() {
+        mCellIdTextView.setText("");
+        mLocationAreaCodeTextView.setText("");
+        mMobileNetworkOperatorTextView.setText("");
+        mSignalStrengthTextView.setText("");
+    }
+
     protected void refreshCellTowerInfo() {
         if (mCurrentCellTower != null) {
             mCellIdTextView.setText(String.valueOf(mCurrentCellTower.getCId()));
             mLocationAreaCodeTextView.setText(String.valueOf(mCurrentCellTower.getLac()));
             mMobileNetworkOperatorTextView.setText(String.valueOf(mCurrentCellTower.getMCC() + " / " + mCurrentCellTower.getMNC()));
-            mSignalStrengthTextView.setText(String.valueOf(mSignalStrength));
             if(mSignalStrength==-1) {
                 mSignalStrengthTextView.setText(NOT_AVAILABLE);
             }
             else {
+                mSignalStrengthTextView.setText(String.valueOf(mSignalStrength));
                 if (mSignalStrength < -109) {
                     mSignalStrengthTextView.setTextColor(ContextCompat.getColor(getActivity(), R.color.darkRed));
                 } else if ((mSignalStrength > -109) && (mSignalStrength < -53)) {
@@ -245,24 +254,26 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
 
             switch(intent.getAction()) {
                 case FRAGMENT_INFO_READY:
-                    Log.i(TAG, "mMessageReceiver.onReceive('fragment-info-ready')");
+//                    Log.i(TAG, "mMessageReceiver.onReceive('fragment-info-ready')");
                     requestCurrentCellTower();
                     break;
                 case CELL_INFO_CHANGED:
-                    Log.i(TAG, "mMessageReceiver.onReceive('cell-info-changed')");
+//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-info-changed')");
                     mCurrentCellTower = (CellTower) intent.getExtras().get(CELL);
                     refresh();
                     break;
                 case CELL_SIGNAL_STRENGTH_CHANGED:
-                    Log.i(TAG, "mMessageReceiver.onReceive('cell-signal-strength-changed)");
+//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-signal-strength-changed')");
                     mSignalStrength = (int) intent.getExtras().get(CELL_SIGNAL_STRENGTH);
                     refresh();
                     break;
                 case CELL_DETECTED:
+//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-detected')");
                     mCurrentCellTower = (CellTower) intent.getExtras().get(CELL);
                     refresh();
                     break;
                 case CELL_LOCATION_CHANGED:
+//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-location-changed')");
                     mCurrentCellTower = (CellTower) intent.getExtras().get(CELL);
                     refresh();
                     break;

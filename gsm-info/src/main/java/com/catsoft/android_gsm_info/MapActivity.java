@@ -56,21 +56,16 @@ public class MapActivity  extends AppCompatActivity {
 
     private Context mContext;
 
-//    private CellTower mSelectedCellTower = null;
-
     private ImageButton mBtnBack = null;
     private ImageButton mBtnExit = null;
 
-    private CellTowerInfoFragment mCellTowerInfoFragment;
-//    private boolean mCellTowerInfoFragmentReady = false;
+    private CellTowerInfoFragment mCellTowerInfoFragment = null;
 
-    private CellTowersMapFragment mCellTowersMapFragment;
-//    private boolean mCellTowersMapFragmentReady = false;
+    private CellTowersMapFragment mCellTowersMapFragment = null;
 
     private Thread mFragmentThread = null;
 
     private IntentFilter mAppFilter = null;
-//    private Bundle mSavedInstanceState = null;
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override

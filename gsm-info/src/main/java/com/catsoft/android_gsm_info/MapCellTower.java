@@ -42,4 +42,6 @@ public class MapCellTower extends CellTower {
             this.mLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
         }
     }
+
+
 }

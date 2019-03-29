@@ -26,7 +26,7 @@ import android.util.Log;
  */
 public class GPSTrackingService extends Service implements LocationListener {
 
-    private static final String TAG = "GPSTrackingService";
+    private static final String TAG = "GSMInfo-GPSTrackingService";
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // Minimum Distance to change Updates in meters (10m)
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // Minimum Time between Updates in milliseconds (6000ms -> 1min)
@@ -124,6 +124,14 @@ public class GPSTrackingService extends Service implements LocationListener {
         this.mServiceHandler.sendMessage(message);
 
         return START_REDELIVER_INTENT;
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.i(TAG, "DESTROYING  Tracking Service");
+        this.mLocationManager.removeUpdates(this);
+        turnGPSOff();
+        this.stopSelf();
     }
 
     public void turnGPSOn() {

@@ -223,6 +223,10 @@ public class StartUpActivity extends AppCompatActivity {
         Intent gpsTrackingServiceIntent = new Intent(this, GPSTrackingService.class);
         this.startService(gpsTrackingServiceIntent);
     }
+    private void stopGPSTrackingService() {
+        Intent gpsTrackingServiceIntent = new Intent(this, GPSTrackingService.class);
+        this.stopService(gpsTrackingServiceIntent);
+    }
 
     private void startMapActivity() {
         Intent anIntent = new Intent(this, MapActivity.class);
@@ -318,6 +322,8 @@ public class StartUpActivity extends AppCompatActivity {
     }
 
     public final void exitApp(boolean error) {
+        Log.i(TAG, "Exiting...");
+        stopGPSTrackingService();
         if(error==true) {
             exitOnError();
         }

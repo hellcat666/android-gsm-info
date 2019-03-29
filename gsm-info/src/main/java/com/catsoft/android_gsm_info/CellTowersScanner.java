@@ -104,7 +104,8 @@ public class CellTowersScanner {
             mCellInfo = cellInfo;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 Intent anIntent = new Intent();
-                anIntent.setAction(CELL_DETECTED);
+//                anIntent.setAction(CELL_DETECTED);
+                anIntent.setAction(CELL_INFO_CHANGED);
                 anIntent.putExtra(CELL, mCellInfo);
                 mContext.sendBroadcast(anIntent);
             }
