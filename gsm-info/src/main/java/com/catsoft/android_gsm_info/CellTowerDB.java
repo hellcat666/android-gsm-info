@@ -451,6 +451,8 @@ public class CellTowerDB  extends SQLiteOpenHelper {
     public ArrayList<CellTower> select() {
         Log.i(TAG, "Executing ArrayList<CellTower> SELECT() ...");
 
+        String orderBy = "ORDER BY COL_LATITUDE, COL_LONGITUDE";
+
         if(mCellTowers==null) {
             mCellTowers = new ArrayList<CellTower>();
         }
@@ -474,7 +476,7 @@ public class CellTowerDB  extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
-                null);
+                 orderBy);
 
         cur.moveToFirst();
 
