@@ -46,14 +46,13 @@
             android:layout_centerVertical="true"
             android:adjustViewBounds="false"
             android:background="@android:color/transparent"
+            android:contentDescription="Exit Button Image"
             android:cropToPadding="false"
             android:elevation="0dp"
-            android:onClick="exitApp"
             android:padding="5dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_toolbar_button_exit"
-            android:visibility="visible"
-            android:contentDescription="Exit Button Image"/>
+            android:visibility="visible"/>
 
     </RelativeLayout>
 </android.support.v7.widget.Toolbar>
