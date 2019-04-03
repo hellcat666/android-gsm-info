@@ -189,14 +189,14 @@ public class MapActivity  extends AppCompatActivity {
     }
 
     private void registerReceiver() {
-        Log.i(TAG, "registerReceiver()");
+//        Log.i(TAG, "registerReceiver()");
         mAppFilter = new IntentFilter();
         mAppFilter.addAction(ACTIVITY_READY);
         mContext.registerReceiver(mMessageReceiver, mAppFilter);
     }
 
     private void unregisterReceiver() {
-        Log.i(TAG, "unregisterReceiver()");
+//        Log.i(TAG, "unregisterReceiver()");
         mContext.unregisterReceiver(mMessageReceiver);
     }
 

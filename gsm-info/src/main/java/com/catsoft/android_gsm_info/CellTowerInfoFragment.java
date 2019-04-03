@@ -248,7 +248,7 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i(TAG, "mMessageReceiver.onReceive()");
+//            Log.i(TAG, "mMessageReceiver.onReceive()");
 
             if (intent == null) { return; }
 

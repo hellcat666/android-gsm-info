@@ -24,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
@@ -43,7 +44,7 @@ import java.util.ArrayList;
 
 public class CellTowersMapFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = "FragCellTowersMap";
+    private static final String TAG = "GSMInfo-FCellTowersMap";
 
     private static final String FRAG_CELLTOWERS_MAP = "frag-celltowers-map";
     private static final String FRAGMENT_MAP_READY = "fragment-map-ready";
@@ -74,6 +75,7 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
 
     private ArrayList<CellTower> mCellTowers;
     private ArrayList<MapCellTower> mMapCellTowers;
+    private ArrayList<Marker> mMarkers;
     private MapCellTower mSelectedCellTower = null;
     private MapCellTower mCurrentCellTower = null;
     private MapCellTower mPreviousCellTower = null;
@@ -82,12 +84,13 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
     private GoogleMap mMap = null;
     private MapView mMapView = null;
     private Rectangle mMapRectangle = null;
+    private Circle mMapCircle = null;
     private LatLngBounds mMapBounds = null;
 
     private LatLng mHomeLatLng = new LatLng(46.5411101, 6.5820545);
     private float mDefaultZoomLevel = 13.0f;
-    private int mActiveCircleColor = 0x15ff0000;
-    private int mInactiveCircleColor = 0x15808080;
+    private int mActiveCircleColor = 0x15600000;    // 0x15ff0000;
+    private int mInactiveCircleColor = 0x15606060;  // 0x15808080;
 
     private Marker mHomeMarker;
     private Marker mCurrentCellTowerMarker = null;
@@ -202,6 +205,7 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
                 mContext.registerReceiver(mMessageReceiver, mAppFilter);
                 mReceiverRegistered = true;
             } catch (Exception ex) {
+                Log.e(TAG, ex.getMessage());
             } finally {
             }
         }
@@ -213,6 +217,7 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
                 mContext.unregisterReceiver(mMessageReceiver);
                 mReceiverRegistered = false;
             } catch (Exception ex) {
+                Log.e(TAG, ex.getMessage());
             } finally {
             }
         }
@@ -235,31 +240,31 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
 
             switch(intent.getAction()) {
                 case FRAGMENT_MAP_READY:
-                    Log.i(TAG, "FRAGMENT_MAP_READY");
+//                    Log.i(TAG, "FRAGMENT_MAP_READY");
                     requestCellTowersList();
                     break;
 
                 case CELLTOWERS_LIST:
-                    Log.i(TAG, "CELLTOWERS_LIST");
+//                    Log.i(TAG, "CELLTOWERS_LIST");
                     setCellTowersList(intent);
                     setMapCellTowersList();
+                    setMapCellTowerMarkers();
                     refreshCellTowersMap();
                     break;
 
                 case CELL_INFO_UPDATED:
-                    Log.i(TAG, "CELL_INFO_UPDATED");
-                    mPreviousCellTower = mCurrentCellTower;
+//                    Log.i(TAG, "CELL_INFO_UPDATED");
+                    if(mCurrentCellTower!=null) mPreviousCellTower = mCurrentCellTower;
                     mCurrentCellTower = new MapCellTower((CellTower) intent.getExtras().get(CELL));
-                    if(mCurrentCellTower.equals(mPreviousCellTower)) {
-                        Log.i(TAG, "CELL_INFO_UPDATED -- SAME CellTower...");
-                    }
-                    else {
-                        Log.i(TAG, "CELL_INFO_UPDATED -- CellTower CHANGED");
-                        if((mMapReady) && (mCellTowers!=null)) {
-                            setMapCellTowersList();
+//                    if(mCurrentCellTower.equals(mPreviousCellTower)) {
+//                        Log.i(TAG, "CELL_INFO_UPDATED -- SAME CellTower...");
+//                    }
+//                    else {
+//                        Log.i(TAG, "CELL_INFO_UPDATED -- CellTower CHANGED");
+                        if((mMapReady) && (mMarkers!=null)) {
                             refreshCellTowersMap();
                         }
-                    }
+//                    }
                     break;
 
                 case CELL_INFO_CHANGED:
@@ -271,25 +276,23 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
                     break;
 
                 case CELL_LOCATION_CHANGED:
-                    Log.i(TAG, "mMessageReceiver.onReceive('cell-location-changed')");
+//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-location-changed')");
                     mPreviousCellTower = mCurrentCellTower;
                     mCurrentCellTower = new MapCellTower((CellTower) intent.getExtras().get(CELL));
                     if(mCurrentCellTower.equals(mPreviousCellTower)) {
-                        Log.i(TAG, "CELL_LOCATION_CHANGED -- SAME CellTower...");
+//                        Log.i(TAG, "CELL_LOCATION_CHANGED -- SAME CellTower...");
                     }
                     else {
-                        Log.i(TAG, "CELL_LOCATION_CHANGED -- CellTower CHANGED");
+//                        Log.i(TAG, "CELL_LOCATION_CHANGED -- CellTower CHANGED");
                         if((mMapReady) && (mCellTowers!=null)) {
-                            setMapCellTowersList();
                             refreshCellTowersMap();
                         }
                     }
                     break;
 
                 case REFRESH:
-                    Log.i(TAG, "REFRESH");
+//                    Log.i(TAG, "REFRESH");
                     if((mMapReady) && (mCellTowers!=null)) {
-                        setMapCellTowersList();
                         refreshCellTowersMap();
                     }
                     break;
@@ -310,16 +313,23 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setCompassEnabled(true);
         mMapReady = true;
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
-                Log.i(TAG, "onMapClick() Listener invoked ...");
+//                Log.i(TAG, "onMapClick() Listener invoked ...");
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mCurrentCellTower.getLatLong(), mDefaultZoomLevel));
             }
         });
 
+        /*
+         * UNUSED
+         */
 //        mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
 //            @Override
 //            public void onCameraIdle() {
@@ -327,6 +337,9 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
 //            }
 //        });
 
+        /*
+         * UNUSED
+         */
 //        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
 //            @Override
 //            public void onCameraMove() {
@@ -337,130 +350,10 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
 //            }
 //        });
 
-        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-            public void onMapLoaded() {
-                Log.i(TAG, "MapLoadedCallback invoked ...");
-                mMapBounds = mMap.getProjection().getVisibleRegion().latLngBounds;
-                Intent anIntent = new Intent();
-                anIntent.setAction(FRAGMENT_MAP_READY);
-                anIntent.putExtra(FRAGMENT, FRAG_CELLTOWERS_MAP);
-                mContext.sendBroadcast(anIntent);
-                refreshCellTowersMap();
-            }
-        });
-
-        mIconHome = BitmapDescriptorFactory.fromResource(R.drawable.icon_home16);
-        mIconActiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.active_bts);
-        mIconInactiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.inactive_bts);
-
-        if(mSavedInstanceState!=null) {
-            mCurrentCellTower = mSavedInstanceState.getParcelable(CELL_INFO);
-            mMapCellTowers = mSavedInstanceState.getParcelableArrayList(CELLS);
-        }
-    }
-
-    private void setCellTowersList(Intent intent) {
-        mCellTowers = intent.getParcelableArrayListExtra(CELLS);
-    }
-
-    private void setMapCellTowersList() {
-    MapCellTower mapCellTower = null;
-        mMapCellTowers.clear();
-        for(int idx=0; idx<mCellTowers.size(); idx++) {
-            CellTower cell = mCellTowers.get(idx);
-            mapCellTower = (new MapCellTower(cell));
-            if ((mCurrentCellTower != null) && (mCurrentCellTower.equals(cell))) {
-                Log.i(TAG, "Cells match with CIds: " + String.valueOf(mCurrentCellTower.getCId()) + " / " + String.valueOf(cell.getCId()));
-                mapCellTower.setTitle("Current BTS Info");
-                mapCellTower.setIcon(mIconActiveBTS);
-                mapCellTower.setCircleColor(mActiveCircleColor);
-            } else {
-                mapCellTower.setTitle("BTS Info");
-                mapCellTower.setIcon(mIconInactiveBTS);
-                mapCellTower.setCircleColor(mInactiveCircleColor);
-            }
-            mMapCellTowers.add(mapCellTower);
-        }
-        refreshCellTowersMap();
-    }
-
-    protected void setHomeLocationMarker() {
-        mHomeMarker = mMap.addMarker(new MarkerOptions()
-                .position(mHomeLatLng)
-                .title("Home")
-                .icon(mIconHome));
-        mHomeMarker.setTag(null);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mHomeLatLng, mDefaultZoomLevel));
-     }
-
-    protected void setActiveCellTower() {
-    int prevIdx = mMapCellTowers.indexOf(mPreviousCellTower);
-    int curIdx = mMapCellTowers.indexOf(mCurrentCellTower);
-        if((mPreviousCellTower!=null) && (prevIdx>0)) {
-            MapCellTower prevCell = mMapCellTowers.get(mMapCellTowers.indexOf(mPreviousCellTower));
-            prevCell.setTitle("BTS Info");
-            prevCell.setIcon(mIconInactiveBTS);
-            prevCell.setCircleColor(mInactiveCircleColor);
-        }
-        if((mCurrentCellTower!=null) && (curIdx>0)) {
-            MapCellTower curCell = mMapCellTowers.get(mMapCellTowers.indexOf(mCurrentCellTower));
-            curCell.setTitle("Current BTS Info");
-            curCell.setIcon(mIconActiveBTS);
-            curCell.setCircleColor(mActiveCircleColor);
-        }
-    }
-
-    protected void setCellTowerMarker(MapCellTower cell) {
-        if(cell!=null) {
-            if (cell.hasLocation()) {
-                LatLng latLng = new LatLng(cell.getLocation().getLatitude(), cell.getLocation().getLongitude());
-                Marker marker = mMap.addMarker(new MarkerOptions()
-                        .position(cell.getLatLong())
-                        .title(cell.getTitle())
-                        .icon(cell.getIcon()));
-                CellTowerInfoWindow infoWindow = new CellTowerInfoWindow(mContext);
-                mMap.setInfoWindowAdapter(infoWindow);
-                marker.setTag(cell);
-                CircleOptions circleOptions = new CircleOptions()
-                        .center(cell.getLatLong())
-                        .radius(cell.getLocation().getAccuracy())
-                        .strokeWidth(0f)
-                        .fillColor(cell.getCircleColor());
-                mMap.addCircle(circleOptions);
-            }
-            else {
-//                showToast("Inactive BTS has no Location");
-            }
-        }
-    }
-
-    protected void setCellTowerMarkers() {
-    LatLng coord = null;
-        Log.i(TAG, "setCellTowerMarkers()");
-        if(mMapCellTowers.size()>0) {
-            for (MapCellTower cell : mMapCellTowers) {
-//                if ((mMapBounds != null) && mMapBounds.contains(cell.getLatLong())) {
-                    setCellTowerMarker(cell);
-//                }
-            }
-        }
-    }
-
-    protected void refresh() {
-        Intent anIntent = new Intent();
-        anIntent.setAction(REFRESH);
-        mContext.sendBroadcast(anIntent);
-    }
-
-    protected void refreshCellTowersMap() {
-        mMap.clear();
-        setHomeLocationMarker();
-        setCellTowerMarkers();
-
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                Log.i(TAG, "onMarkerClick() invoked ...");
+//                Log.i(TAG, "onMarkerClick() invoked ...");
                 if((marker!=null) && (marker.getTag()!=null) && (marker.getTag().getClass().getName().equals(CellTower.class.getName()))) {
                     marker.showInfoWindow();
                     return true;
@@ -481,6 +374,177 @@ public class CellTowersMapFragment extends android.support.v4.app.Fragment imple
             }
         });
 
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            public void onMapLoaded() {
+//                Log.i(TAG, "MapLoadedCallback invoked ...");
+                mMapBounds = mMap.getProjection().getVisibleRegion().latLngBounds;
+                Intent anIntent = new Intent();
+                anIntent.setAction(FRAGMENT_MAP_READY);
+                anIntent.putExtra(FRAGMENT, FRAG_CELLTOWERS_MAP);
+                mContext.sendBroadcast(anIntent);
+            }
+        });
+
+        mIconHome = BitmapDescriptorFactory.fromResource(R.drawable.icon_home16);
+        mIconActiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.active_bts);
+        mIconInactiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.inactive_bts);
+
+        /*
+         * UNUSED
+         */
+//        if(mSavedInstanceState!=null) {
+//            mCurrentCellTower = mSavedInstanceState.getParcelable(CELL_INFO);
+//            mMapCellTowers = mSavedInstanceState.getParcelableArrayList(CELLS);
+//        }
+
+    }
+
+    /**
+     * void setCellTowersList(Intent intent)
+     * Set the list of the CellTowers retrieved from  the Database
+     *
+     * @param intent    The list of CellTowers from the Database
+     *
+     */
+    private void setCellTowersList(Intent intent) {
+        mCellTowers = intent.getParcelableArrayListExtra(CELLS);
+    }
+
+    /**
+     * void setMapCellTowersList()
+     * Set the array of MapCellTower Objects
+     *
+     */
+    private void setMapCellTowersList() {
+    MapCellTower mapCellTower = null;
+        mMapCellTowers.clear();
+        for(int idx=0; idx<mCellTowers.size(); idx++) {
+            CellTower cell = mCellTowers.get(idx);
+            mapCellTower = (new MapCellTower(cell));
+            mMapCellTowers.add(mapCellTower);
+        }
+    }
+
+    protected void setActiveCellTower() {
+    MapCellTower cell;
+    int prevID=0;
+    int curID=0;
+    int mrkID=0;
+//        Log.i(TAG, "setActiveCellTower()");
+        for (Marker marker : mMarkers) {
+            cell = (MapCellTower)marker.getTag();
+            if(cell!=null) {
+                mrkID = cell.getCId();
+                if (mPreviousCellTower != null) {
+                    prevID = mPreviousCellTower.getCId();
+                    if (mrkID == prevID) {
+//                        Log.i(TAG, "prevID/curID/mrkID for the PREVIOUS CellTower found: " + String.valueOf(prevID) + "/" + String.valueOf(curID) + "/" + String.valueOf(mrkID));
+                        cell.setActive(false);
+                        marker.setIcon(cell.getIcon());
+                        if(mMapCircle!=null) mMapCircle.remove();
+                    }
+                }
+                if (mCurrentCellTower != null) {
+                    curID = mCurrentCellTower.getCId();
+                    if (mrkID == curID) {
+//                        Log.i(TAG, "prevID/curID/mrkID for the CURRENT CellTower found: " + String.valueOf(prevID) + "/" + String.valueOf(curID) + "/" + String.valueOf(mrkID));
+                        cell.setActive(true);
+                        marker.setIcon(cell.getIcon());
+                        if(mMapCircle!=null) mMapCircle.remove();
+                        mMapCircle = mMap.addCircle(new CircleOptions()
+                                    .center(cell.getLatLong())
+                                    .radius(cell.getLocation().getAccuracy())
+                                    .strokeWidth(0f)
+                                    .fillColor(cell.getCircleColor()));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * void setHomeLocationMarker()
+     * Set the Marker for the Home Position (e.g. My Home)
+     *
+     */
+    protected void setHomeLocationMarker() {
+        mHomeMarker = mMap.addMarker(new MarkerOptions()
+                .position(mHomeLatLng)
+                .title("Home")
+                .icon(mIconHome));
+        mHomeMarker.setTag(null);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mHomeLatLng, mDefaultZoomLevel));
+    }
+
+    /**
+     * void setMapCellTowerMarkers()
+     * Set Map CellTowers Markers
+     *
+     */
+    protected void setMapCellTowerMarkers() {
+    LatLng coord = null;
+//        Log.i(TAG, "setCellTowerMarkers()");
+        mMap.clear();
+        if(mMarkers==null) {
+            mMarkers = new ArrayList<Marker>();
+        }
+        mMarkers.clear();
+        if(mMapCellTowers.size()>0) {
+            for (MapCellTower cell : mMapCellTowers) {
+                Marker marker = setCellTowerMarker(cell);
+                if (marker != null) { mMarkers.add(marker); }
+            }
+        }
+    }
+
+    /**
+     * Marker setCellTowerMarker(MapCellTower cell)
+     * Create a Marker for the given CellTower
+     *
+     * @param cell the CellTower Object we want to add a Marker to.
+     * @return The marker Object related to the CellTower
+     *
+     */
+    protected Marker setCellTowerMarker(MapCellTower cell) {
+        Marker marker = null;
+        if(cell!=null) {
+            if (cell.hasLocation()) {
+                LatLng latLng = new LatLng(cell.getLocation().getLatitude(), cell.getLocation().getLongitude());
+                marker = mMap.addMarker(new MarkerOptions()
+                        .position(cell.getLatLong())
+                        .title(cell.getTitle())
+                        .icon(cell.getIcon()));
+                CellTowerInfoWindow infoWindow = new CellTowerInfoWindow(mContext);
+                mMap.setInfoWindowAdapter(infoWindow);
+
+                /*
+                 * UNUSED - We don't want to draw Circles for inactive CellTowers
+                 */
+//                CircleOptions circleOptions = new CircleOptions()
+//                        .center(cell.getLatLong())
+//                        .radius(cell.getLocation().getAccuracy())
+//                        .strokeWidth(0f)
+//                        .fillColor(cell.getCircleColor());
+//                Circle circle = mMap.addCircle(circleOptions);
+
+                marker.setTag(cell);
+            }
+            else {
+//                showToast("Inactive BTS has no Location");
+            }
+        }
+        return marker;
+    }
+
+    protected void refresh() {
+        Intent anIntent = new Intent();
+        anIntent.setAction(REFRESH);
+        mContext.sendBroadcast(anIntent);
+    }
+
+    protected void refreshCellTowersMap() {
+        setHomeLocationMarker();
+        setActiveCellTower();
     }
 
     private void showToast(final String msg){

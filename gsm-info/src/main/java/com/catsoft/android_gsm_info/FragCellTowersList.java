@@ -113,7 +113,7 @@ public class FragCellTowersList extends android.support.v4.app.Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.i(TAG, "mMessageReceiver.onReceive()");
+//            Log.i(TAG, "mMessageReceiver.onReceive()");
 
             switch(intent.getAction()) {
                 case CELLS_LIST:

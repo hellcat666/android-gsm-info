@@ -47,17 +47,17 @@ public class CellTowerInfoWindow  implements GoogleMap.InfoWindowAdapter  {
         TextView txtLat = mView.findViewById(R.id.txtLat);
         TextView txtLng = mView.findViewById(R.id.txtLng);
         TextView txtAddress = mView.findViewById(R.id.txtAddress);
-        CellTower cellTower = (CellTower) marker.getTag();
-        mTitle.setText(marker.getTitle());
+        MapCellTower mapCellTower = (MapCellTower)marker.getTag();
+        mTitle.setText(mapCellTower.getTitle());
 
-        if(cellTower!=null) {
-            txtCid.setText(String.valueOf(cellTower.getCId()));
-            txtLac.setText(String.valueOf(cellTower.getLac()));
-            txtMcc.setText(String.valueOf(cellTower.getMCC()));
-            txtMnc.setText(String.valueOf(cellTower.getMNC()));
-            txtLat.setText(String.valueOf(cellTower.getLocation().getLatitude()));
-            txtLng.setText(String.valueOf(cellTower.getLocation().getLongitude()));
-            txtAddress.setText(cellTower.getLocation().getAddress());
+        if(mapCellTower!=null) {
+            txtCid.setText(String.valueOf(mapCellTower.getCId()));
+            txtLac.setText(String.valueOf(mapCellTower.getLac()));
+            txtMcc.setText(String.valueOf(mapCellTower.getMCC()));
+            txtMnc.setText(String.valueOf(mapCellTower.getMNC()));
+            txtLat.setText(String.valueOf(mapCellTower.getLocation().getLatitude()));
+            txtLng.setText(String.valueOf(mapCellTower.getLocation().getLongitude()));
+            txtAddress.setText(mapCellTower.getLocation().getAddress());
         }
         else {
             txtCid.setText(NOT_AVAILABLE);

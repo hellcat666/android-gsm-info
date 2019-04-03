@@ -57,7 +57,7 @@ public class GPSTrackingService extends Service implements LocationListener {
 
         turnGPSOn();
 
-        Log.i(TAG, "LocationService.onCreate()");
+//        Log.i(TAG, "LocationService.onCreate()");
         // To avoid cpu-blocking, we create a background handler to run our service
         mHandlerThread = new HandlerThread("LocationService", android.os.Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
@@ -83,27 +83,27 @@ public class GPSTrackingService extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.i(TAG, "LocationService.onLocationChanged()");
+//        Log.i(TAG, "LocationService.onLocationChanged()");
         this.mLocation = location;
         this.sendDataMessage();
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        Log.i(TAG, "LocationService.onStatusChanged()");
+//        Log.i(TAG, "LocationService.onStatusChanged()");
         this.sendStatusMessage();
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        Log.i(TAG, "LocationService.onProviderEnabled()");
+//        Log.i(TAG, "LocationService.onProviderEnabled()");
         mProviderActive = true;
         this.sendStatusMessage();
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-        Log.i(TAG, "LocationService.onProviderDisabled()");
+//        Log.i(TAG, "LocationService.onProviderDisabled()");
         mProviderActive = false;
         this.sendStatusMessage();
     }
@@ -116,7 +116,7 @@ public class GPSTrackingService extends Service implements LocationListener {
 
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        Log.i(TAG, "LocationService.onStartCommand(...)");
+//        Log.i(TAG, "LocationService.onStartCommand(...)");
 
         // call a new service handler. The service ID can be used to identify the service
         Message message = this.mServiceHandler.obtainMessage();
@@ -128,7 +128,7 @@ public class GPSTrackingService extends Service implements LocationListener {
 
     @Override
     public void onDestroy() {
-        Log.i(TAG, "DESTROYING  Tracking Service");
+//        Log.i(TAG, "DESTROYING  Tracking Service");
         this.mLocationManager.removeUpdates(this);
         turnGPSOff();
         this.stopSelf();
@@ -167,7 +167,7 @@ public class GPSTrackingService extends Service implements LocationListener {
     }
 
     private void sendDataMessage() {
-        Log.i(TAG, "LocationService.sendStatusMessage(" + String.valueOf(mLocation.getLatitude()) + "," + String.valueOf(mLocation.getLongitude()) + ")");
+//        Log.i(TAG, "LocationService.sendStatusMessage(" + String.valueOf(mLocation.getLatitude()) + "," + String.valueOf(mLocation.getLongitude()) + ")");
         Intent intent = new Intent("gps-location-data");
         // You can also include some extra data.
         intent.putExtra("message", "SENDING LOCATION SERVICE DATA.");
@@ -176,7 +176,7 @@ public class GPSTrackingService extends Service implements LocationListener {
     }
 
     private void sendStatusMessage() {
-        Log.i(TAG, "LocationService.sendStatusMessage()");
+//        Log.i(TAG, "LocationService.sendStatusMessage()");
         Intent intent = new Intent("gps-location-status");
         Bundle statusBundle = new Bundle();
         statusBundle.putBoolean("provider-active", mProviderActive);
@@ -185,7 +185,7 @@ public class GPSTrackingService extends Service implements LocationListener {
     }
 
     private void sendProviderMessage() {
-        Log.i(TAG,"LocationService.sendProviderMessage()");
+//        Log.i(TAG,"LocationService.sendProviderMessage()");
         Intent intent = new Intent("gps-location-provider");
         Bundle statusBundle = new Bundle();
         statusBundle.putString("provider-active", String.valueOf(mProviderActive));
@@ -194,7 +194,7 @@ public class GPSTrackingService extends Service implements LocationListener {
     }
 
     private void sendExitMessage() {
-        Log.i(TAG,"LocationService.sendExitMessage()");
+//        Log.i(TAG,"LocationService.sendExitMessage()");
         Intent intent = new Intent("location-exit");
         // You can also include some extra data.
         intent.putExtra("message", "LOCATION SERVICE EXIT.");

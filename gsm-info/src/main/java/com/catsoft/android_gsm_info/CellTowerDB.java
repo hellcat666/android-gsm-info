@@ -224,7 +224,7 @@ public class CellTowerDB  extends SQLiteOpenHelper {
     private void setDBFile() {
 
         if(!dbFileExists()) {
-            Log.i(TAG, "DB File doesn\'t exist.");
+//            Log.i(TAG, "DB File doesn\'t exist.");
             InputStream in = null;
             OutputStream out = null;
             FileHelper.createDir(DB_PATH);
@@ -449,7 +449,7 @@ public class CellTowerDB  extends SQLiteOpenHelper {
      * @return              An ArrayList of CellTowers
      */
     public ArrayList<CellTower> select() {
-        Log.i(TAG, "Executing ArrayList<CellTower> SELECT() ...");
+//        Log.i(TAG, "Executing ArrayList<CellTower> SELECT() ...");
 
         String orderBy = "LATITUDE ASC, LONGITUDE ASC";
 
@@ -492,11 +492,6 @@ public class CellTowerDB  extends SQLiteOpenHelper {
                                            cur.getFloat(COL_ALTITUDE_IDX),
                                            cur.getInt(COL_ACCURACY_IDX),
                                            cur.getString(COL_ADDRESS_IDX));
-//            if(mCellTower!=null) {
-//                if(cell.getCId()==mCellTower.getCId()) {
-//                    Log.i(TAG, "Cell Id / Current Cell Id: " + cell.getCId() + " / " + mCellTower.getCId());
-//                }
-//            }
             mCellTowers.add(cell);
             cur.moveToNext();
         }
@@ -511,7 +506,7 @@ public class CellTowerDB  extends SQLiteOpenHelper {
      * @return              The fetched CellTower if exists (null otherwise)
      */
     public CellTower select(CellTower cell) {
-        Log.i(TAG, "Executing SELECT(CellTower cell) ...");
+//        Log.i(TAG, "Executing SELECT(CellTower cell) ...");
 
         mCellTower = cell;
 
@@ -634,7 +629,7 @@ public class CellTowerDB  extends SQLiteOpenHelper {
             switch(intent.getAction()) {
                 // CellTower detected ...
                 case CELL_DETECTED:
-                    Log.i(TAG, "CELL_DETECTED Received ...");
+//                    Log.i(TAG, "CELL_DETECTED Received ...");
                     // Retrieve CellTower and check if already exists in DB
                     cell = (CellTower) intent.getExtras().get(CELL);
                     // Exists in DB, set as current CellTower
@@ -675,7 +670,7 @@ public class CellTowerDB  extends SQLiteOpenHelper {
                     break;
                 // CellTower location ...
                 case CELLTOWER_LOCATION:
-                    Log.i(TAG, "CELLTOWER_LOCATION Received ...");
+//                    Log.i(TAG, "CELLTOWER_LOCATION Received ...");
                     // Update current CellTower with Location data
                     CellTowerLocation location = (CellTowerLocation)intent.getExtras().get("location");
                     if(mCellTower!=null) {
@@ -698,7 +693,7 @@ public class CellTowerDB  extends SQLiteOpenHelper {
                     }
                     break;
                 case REQUEST_CELLTOWER:
-                    Log.i(TAG, "REQUEST_CELLTOWER Received ...");
+//                    Log.i(TAG, "REQUEST_CELLTOWER Received ...");
                     cell = (CellTower) intent.getExtras().get(CELL);
                     mCellTower = select(cell);
                     if(mCellTower!=null) { }
@@ -709,14 +704,14 @@ public class CellTowerDB  extends SQLiteOpenHelper {
                     mContext.sendBroadcast(aListIntent);
                     break;
                 case REQUEST_CELLTOWERS_LIST:
-                    Log.i(TAG, "REQUEST_CELLTOWERS_LIST Received ...");
+//                    Log.i(TAG, "REQUEST_CELLTOWERS_LIST Received ...");
                     aListIntent = new Intent();
                     aListIntent.setAction(CELLTOWERS_LIST);
                     aListIntent.putParcelableArrayListExtra(CELLS, mCellTowers);
                     mContext.sendBroadcast(aListIntent);
                     break;
                 case CELLTOWER_SELECTED:
-                    Log.i(TAG, "CELLTOWER_SELECTED Received ...");
+//                    Log.i(TAG, "CELLTOWER_SELECTED Received ...");
                     String toastMsg;
                     mCellTower = (CellTower) intent.getExtras().get(CELL);
                     if(mCellTower!=null) {

@@ -36,8 +36,6 @@ public class CellTower implements Parcelable {
 
     protected String mInfo = "";              // Information
 
-//    protected boolean mActive = false;
-
     /**
      * CellTower default Constructor
      *
@@ -169,7 +167,6 @@ public class CellTower implements Parcelable {
         dest.writeString(getNetworkType());
         dest.writeString(getProviderName());
         dest.writeParcelable(mLocation, 0);
-//        dest.writeByte(isActive() ? (byte)1 : (byte)0);
     }
 
     protected CellTower(Parcel in) {
@@ -180,7 +177,6 @@ public class CellTower implements Parcelable {
         this.setNetworkType(in.readString());
         this.setProviderName(in.readString());
         mLocation = in.readParcelable(CellTowerLocation.class.getClassLoader());
-//        this.setActive(in.readByte()>0 ? true : false);
     }
 
 

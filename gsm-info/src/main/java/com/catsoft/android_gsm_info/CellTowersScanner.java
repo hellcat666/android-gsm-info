@@ -100,7 +100,7 @@ public class CellTowersScanner {
 
         public void onCellInfoChanged (CellInfo cellInfo) {
             Log.i(TAG, "onCellInfoChanged()");
-            beep();
+            beep0();
             mCellInfo = cellInfo;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                 Intent anIntent = new Intent();
@@ -112,8 +112,8 @@ public class CellTowersScanner {
         }
 
         public void onSignalStrengthsChanged (SignalStrength signalStrength) {
-            Log.i(TAG, "onSignalStrengthsChanged()");
-            beep();
+//            Log.i(TAG, "onSignalStrengthsChanged()");
+            beep1();
             mGSMSignalStrengthDbm = (2 * signalStrength.getGsmSignalStrength()) - 113;
             Intent anIntent = new Intent();
             anIntent.setAction(CELL_SIGNAL_STRENGTH_CHANGED);
@@ -124,8 +124,8 @@ public class CellTowersScanner {
 
         public void onCellLocationChanged(CellLocation location) {
         GsmCellLocation gsmLocation = null;
-            Log.i(TAG, "onCellLocationChanged()");
-            beep();
+//            Log.i(TAG, "onCellLocationChanged()");
+            beep2();
             if (location instanceof GsmCellLocation) {
                 gsmLocation = (GsmCellLocation) location;
                 setCurrentCellInfo(gsmLocation);
@@ -218,7 +218,7 @@ public class CellTowersScanner {
 
             switch(intent.getAction()) {
                 case REQUEST_CURRENT_CELLTOWER:
-                    Log.i(TAG, "REQUEST_CURRENT_CELLTOWER");
+//                    Log.i(TAG, "REQUEST_CURRENT_CELLTOWER");
                     setCurrentCellInfo(null);
                     Intent anIntent = new Intent();
                     anIntent.setAction(CELL_INFO_CHANGED);
@@ -229,9 +229,19 @@ public class CellTowersScanner {
         }
     };
 
-    private void beep() {
+    private void beep0() {
         ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 25);
-        toneG.startTone(ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD, 25);
+        toneG.startTone(ToneGenerator.TONE_DTMF_0, 25);
+    }
+
+    private void beep1() {
+        ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 25);
+        toneG.startTone(ToneGenerator.TONE_DTMF_1, 25);
+    }
+
+    private void beep2() {
+        ToneGenerator toneG = new ToneGenerator(AudioManager.STREAM_ALARM, 25);
+        toneG.startTone(ToneGenerator.TONE_DTMF_2, 25);
     }
 }
 

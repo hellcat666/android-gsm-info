@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -241,29 +240,29 @@ public class StartUpActivity extends AppCompatActivity {
 
             switch(intent.getAction()) {
                 case CELLTOWERS_DB_READY:
-                    Log.i(TAG, "CellTowers DB OK");
+//                    Log.i(TAG, "CellTowers DB OK");
                     mCellDBReady = true;
                     setCellTowerLocationService();
                     break;
                 case LOCATION_SERVICE_READY:
-                    Log.i(TAG, "Location Service STARTED");
+//                    Log.i(TAG, "Location Service STARTED");
                     mLocationServiceReady = true;
                     startCellTowersDetection();
                     break;
                 case CELLTOWER_DETECTOR_READY:
-                    Log.i(TAG, "CellTower Detector STARTED");
+//                    Log.i(TAG, "CellTower Detector STARTED");
                     mCellDetectorReady = true;
                     Intent anIntent = new Intent();
                     anIntent.setAction(INITIALIZED);
                     sendBroadcast(anIntent);
                     break;
                 case CELLTOWER_DETECTOR_ERROR:
-                    Log.i(TAG, "CellTower Detector ERROR");
+//                    Log.i(TAG, "CellTower Detector ERROR");
                     mCellDetectorReady = false;
                     exitApp(true);
                     break;
                 case INITIALIZED:
-                    Log.i(TAG, "App INITIALIZED");
+//                    Log.i(TAG, "App INITIALIZED");
                     mSplashTextView.setText("Loading Info & Map ...");
                     unregisterReceiver();
                     startMapActivity();
@@ -322,7 +321,7 @@ public class StartUpActivity extends AppCompatActivity {
     }
 
     public final void exitApp(boolean error) {
-        Log.i(TAG, "Exiting...");
+//        Log.i(TAG, "Exiting...");
         stopGPSTrackingService();
         if(error==true) {
             exitOnError();
