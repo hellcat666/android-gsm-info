@@ -25,7 +25,7 @@
 
     <string name="db_name">celltowers.db</string>
     <!-- GMap API Project 1 -->
-    <string name="google_maps_key">AIzaSyCdaWN1Dv-b0vxIjnPwhctKj0vEl5HZ33Q</string>
+    <string name="google_maps_key">AIzaSyA76tFsdnLY5RGAbfJY_n8oJ18X2iYjnOI</string>
 
 </resources>
 

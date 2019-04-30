@@ -10,7 +10,6 @@ android {
         }
     }
     compileSdkVersion 26
-    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId 'com.catsoft.android_gsm_info'
         minSdkVersion 14
