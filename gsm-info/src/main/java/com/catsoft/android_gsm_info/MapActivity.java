@@ -75,6 +75,7 @@ public class MapActivity  extends AppCompatActivity implements CellTowerInfoFrag
 //    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG, "MapActivity.onCreate()");
         super.onCreate(savedInstanceState);
         switch(this.getResources().getConfiguration().orientation) {
             case Configuration.ORIENTATION_PORTRAIT:

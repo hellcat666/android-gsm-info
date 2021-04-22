@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">GSM Info</string>
-    <string name="title_appbar_gsm_info">GSM Info Ver. 2.0.0</string>
-    <string name="verion">2.0.0</string>
-    <string name="device_offline_error">Device is currently offline.\nExiting...</string>
+    <string name="title_appbar_gsm_info">GSM Info Ver. 2.1.0</string>
+    <string name="version">2.1.0</string>
+    <string name="device_offline_error">Device is currently offline.\nExiting&#8230;</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_settings">Settings</string>
     <string name="not_available">n.a</string>
-    <string name="initializing">Initializing ...</string>
+    <string name="initializing">Initializing&#8230;</string>
+    <string name="initializeDB">Initializing Database&#8230;</string>
+    <string name="loading_info_map">Loading Info &amp; Map&#8230;</string>
     <string name="current_celltower_info_title">Current Cell Tower Info</string>
     <string name="celltower_info_title">Cell Tower Info</string>
     <string name="cid_label">CId</string>

@@ -222,7 +222,7 @@ public class StartUpActivity extends AppCompatActivity {
     }
 
     private void setCellTowerDB() {
-        mSplashTextView.setText("Initializing Database ...");
+        mSplashTextView.setText(R.string.initializeDB);
         mCellTowerDB = new CellTowerDB(mContext, mContext.getString(R.string.db_name), null, 1);
     }
     /*
@@ -355,7 +355,7 @@ public class StartUpActivity extends AppCompatActivity {
                 break;
             case INITIALIZED:
                 Log.i(TAG, "App INITIALIZED");
-                mSplashTextView.setText("Loading Info & Map ...");
+                mSplashTextView.setText(R.string.loading_info_map);
                 unregisterReceiver();
                 // Keep EXIT Action registered
                 mAppFilter = new IntentFilter();
