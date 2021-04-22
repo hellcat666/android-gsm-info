@@ -1,19 +1,20 @@
 package com.catsoft.android_gsm_info;
 
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -45,15 +46,20 @@ import android.widget.Toast;
  *    . Full Address
  *
  */
-public class MapActivity  extends AppCompatActivity {
+public class MapActivity  extends AppCompatActivity implements CellTowerInfoFragment.OnCellTowerInfoFragmentCompleteListener, CellTowersMapFragment.OnCellTowersMapFragmentCompleteListener {
 
-    private static final String TAG = "GSMInfo-MapActivity";
+    private static final String TAG = "MapActivity";
 
     private static final String MAP_ACTIVITY_READY = "map-activity-ready";
     private static final String ACTIVITY_READY = "activity-ready";
-    private static final String EXIT = "exit";
+    private static final String EXIT = StartUpActivity.EXIT;
 
     private Context mContext;
+    private Intent mIntent;
+
+    Toolbar mToolbar = null;
+
+    private AppSettings mAppSettings = null;
 
     private ImageButton mBtnBack = null;
     private ImageButton mBtnExit = null;
@@ -66,7 +72,7 @@ public class MapActivity  extends AppCompatActivity {
 
     private IntentFilter mAppFilter = null;
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+//    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,15 +87,28 @@ public class MapActivity  extends AppCompatActivity {
 
         mContext = this.getApplicationContext();
 
+        mIntent = getIntent();
+
+
         initToolBar();
         initButtons();
         initFragments();
+        initSettings();
      }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.app_menu, menu);
+        return true;
+    }
+
 
     @Override
     protected void onStart() {
@@ -109,17 +128,58 @@ public class MapActivity  extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() { super.onDestroy(); }
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver();
+    }
 
     private void initToolBar() {
-        Toolbar mToolbar = findViewById(R.id.app_bar);    // Attaching the layout to the toolbar object
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);    // Attaching the layout to the toolbar object
+        mToolbar.setTitle(R.string.title_appbar_gsm_info);
         setSupportActionBar(mToolbar);                              // Setting toolbar as the ActionBar with setSupportActionBar() call
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
+        mToolbar.inflateMenu(R.menu.app_menu);
         if (mToolbar != null) {
             mToolbar.setVisibility(View.VISIBLE);
+            mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+
+                    switch (item.getItemId()) {
+                        case R.id.menu_settings:
+                            Log.i(TAG, "AppSettings MenuItem clicked");
+                            startSettings();
+                            break;
+                        case R.id.menu_exit:
+                            Log.i(TAG, "Exit MenuItem clicked");
+                            exit();
+                            break;
+                        default:
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onCellTowerInfoFragmentComplete() {
+        if(mAppSettings!=null)
+            mCellTowerInfoFragment.setNetworkType(mAppSettings.getCellTowerLocationServiceNetworkType());
+    }
+
+    @Override
+    public void onCellTowersMapFragmentComplete() {
+        if(mAppSettings!=null) {
+            mCellTowersMapFragment.setMapType((int) mAppSettings.getGoogleMapMapType());
+            mCellTowersMapFragment.setDefaultZoomLevel(mAppSettings.getGoogleMapDefaultZoom());
         }
     }
 
     private void initButtons() {
+        /*
         mBtnBack = findViewById(R.id.btn_back);
         if (mBtnBack != null) {
             mBtnBack.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +203,7 @@ public class MapActivity  extends AppCompatActivity {
             });
         }
         mBtnExit.setVisibility(View.VISIBLE);
+        */
     }
 
     private void initFragments() {
@@ -160,6 +221,12 @@ public class MapActivity  extends AppCompatActivity {
         }
     }
 
+    private void initSettings() {
+        if(mIntent!=null)
+            if(mIntent.getExtras()!=null)
+                mAppSettings = (AppSettings)mIntent.getExtras().get(SettingsActivity.APP_SETTINGS);
+    }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -169,22 +236,6 @@ public class MapActivity  extends AppCompatActivity {
         }
         else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        switch(keyCode) {
-            case KeyEvent.KEYCODE_BACK:
-                break;
-            case KeyEvent.KEYCODE_HOME:
-                break;
-        }
-        return false;
     }
 
     private void registerReceiver() {
@@ -218,11 +269,17 @@ public class MapActivity  extends AppCompatActivity {
         }
     };
 
+    private void startSettings() {
+        Intent anIntent = new Intent(this, SettingsActivity.class);
+        anIntent.putExtra(SettingsActivity.APP_SETTINGS, mAppSettings);
+        anIntent.putExtra("parent", this.getClass());
+        this.startActivity(anIntent);
+    }
+
     private void exit() {
-        Intent anIntent = new Intent(mContext, StartUpActivity.class);
-        anIntent.putExtra(EXIT, EXIT);
-        anIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(anIntent);
+        Intent anIntent = new Intent();
+        anIntent.setAction(EXIT);
+        mContext.sendBroadcast(anIntent);
         finish();
     }
 

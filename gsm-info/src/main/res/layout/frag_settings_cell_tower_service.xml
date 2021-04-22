@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2px"
+    android:layout_marginTop="2px"
+    android:layout_marginRight="5px"
+    android:layout_marginBottom="2px"
+    android:background="@drawable/bg_button_dark"
+    android:orientation="vertical"
+    android:padding="2px">
+
+    <TextView
+        android:id="@+id/lblLocationServiceTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2px"
+        android:text="CellTower Location Service"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="2px"
+        android:layout_marginRight="5px">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/lblNetworkType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Network Type"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <EditText
+                android:id="@+id/txtNetworkType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:background="@android:drawable/editbox_dropdown_light_frame"
+                android:editable="false"
+                android:text="GSM"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </TableRow>
+
+    </TableLayout>
+
+</android.widget.LinearLayout>

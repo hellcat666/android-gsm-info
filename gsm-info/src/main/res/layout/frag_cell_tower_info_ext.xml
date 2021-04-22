@@ -276,7 +276,7 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/txtAddress"
+                android:id="@+id/txtCellTowerAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

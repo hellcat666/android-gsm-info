@@ -1,5 +1,6 @@
 package com.catsoft.android_gsm_info;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,7 +16,9 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class MapCellTower extends CellTower implements Parcelable {
 
-    private static final String TAG = "GSMInfo-MapCellTower";
+    private static final String TAG = "MapCellTower";
+
+    private Context mContext;
 
     private static final String mActiveTitle = "Current BTS Info";
     private static final String mInactiveTitle = "BTS Info";
@@ -34,9 +37,14 @@ public class MapCellTower extends CellTower implements Parcelable {
             mTitle = mInactiveTitle;
     }
 
-    private BitmapDescriptor mIcon;
-    public BitmapDescriptor getIcon() { return mIcon; }
-    public void setIcon(BitmapDescriptor icon) { this.mIcon = icon; }
+    private int mIcon;
+    public BitmapDescriptor getIcon() {
+        return BitmapDescriptorFactory.fromBitmap(AppUtils.resizeIcon(mContext, mIcon, 160));    }
+    public BitmapDescriptor getIcon(int size) {
+        return BitmapDescriptorFactory.fromBitmap(AppUtils.resizeIcon(mContext, mIcon, size));
+    }
+
+//    public void setIcon(Drawable icon) { ((Drawable)this.mIcon) = icon; }
 
     private void setIcon() {
 //        Log.i(TAG, "MapCellTower.setIcon() - CId:" + String.valueOf(this.getCId()));
@@ -46,8 +54,31 @@ public class MapCellTower extends CellTower implements Parcelable {
             mIcon = mIconInactiveBTS;
     }
 
-    private BitmapDescriptor mIconActiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.active_bts);
-    private BitmapDescriptor mIconInactiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.inactive_bts);
+    private int mLightIcon;
+    public BitmapDescriptor getLightIcon() {
+        return BitmapDescriptorFactory.fromBitmap(AppUtils.resizeIcon(mContext, mLightIcon, 160));    }
+    public BitmapDescriptor getLightIcon(int size) {
+        return BitmapDescriptorFactory.fromBitmap(AppUtils.resizeIcon(mContext, mLightIcon, size));
+    }
+
+//    public void setIcon(Drawable icon) { ((Drawable)this.mIcon) = icon; }
+
+    private void setLightIcon() {
+//        Log.i(TAG, "MapCellTower.setIcon() - CId:" + String.valueOf(this.getCId()));
+        if(mActive)
+            mLightIcon = mIconActiveBTS;
+        else
+            mLightIcon = mIconInactiveSatBTS;
+    }
+
+
+//    private BitmapDescriptor mIconActiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.active_bts);
+//    private BitmapDescriptor mIconInactiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.inactive_bts);
+//    private BitmapDescriptor mIconActiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.red_active_bts160);
+//    private BitmapDescriptor mIconInactiveBTS = BitmapDescriptorFactory.fromResource(R.drawable.inactive_bts160);
+    private int mIconActiveBTS = R.drawable.red_active_bts160;
+    private int mIconInactiveBTS = R.drawable.inactive_sat_bts160;
+    private int mIconInactiveSatBTS = R.drawable.inactive_sat_bts160;
 
     private LatLng mLatLng;
     public LatLng getLatLong() { return mLatLng; }
@@ -75,28 +106,32 @@ public class MapCellTower extends CellTower implements Parcelable {
         setAttributes();
     }
 
-    public MapCellTower() {
+    public MapCellTower(Context context) {
         super();
+        mContext = context;
         setAttributes();
     }
 
-    public MapCellTower(int cid, int lac, int mcc, int mnc, String networkType, String providerName, float latitude, float longitude, float altitude, int accuracy, String address) {
+    public MapCellTower(Context context, int cid, int lac, int mcc, int mnc, String networkType, String providerName, float latitude, float longitude, float altitude, int accuracy, String address) {
         super(cid, lac, mcc, mnc, networkType, providerName, latitude, longitude, altitude, accuracy, address);
+        this.mContext = context;
         this.mLatLng = new LatLng(latitude, longitude);
         setAttributes();
     }
 
-    public MapCellTower(CellTower cell) {
+    public MapCellTower(Context context, CellTower cell) {
         super(cell.getCId(), cell.getLac(), cell.getMCC(), cell.getMNC(), cell.getNetworkType(), cell.getProviderName(), cell.getLocation());
         if(this.getLocation()!=null) {
             this.mLatLng = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
         }
+        this.mContext = context;
         setAttributes();
     }
 
     private void setAttributes() {
         setTitle();
         setIcon();
+        setLightIcon();
         setCircleColor();
     }
 

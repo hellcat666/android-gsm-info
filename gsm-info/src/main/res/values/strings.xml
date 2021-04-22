@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">GSM Info</string>
-    <string name="title_appbar_gsm_info">GSM Info Ver. 1.2.0</string>
-    <string name="verion">1.2.0</string>
+    <string name="title_appbar_gsm_info">GSM Info Ver. 2.0.0</string>
+    <string name="verion">2.0.0</string>
     <string name="device_offline_error">Device is currently offline.\nExiting...</string>
     <string name="title_activity_map">Map</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="not_available">n.a</string>
     <string name="initializing">Initializing ...</string>
     <string name="current_celltower_info_title">Current Cell Tower Info</string>
@@ -22,8 +23,12 @@
     <string name="address_label">Address</string>
     <string name="ok_button_label">OK</string>
     <string name="cancel_button_label">Cancel</string>
-
     <string name="db_name">celltowers.db</string>
+
+    <!-- Menu -->
+    <string name="exit">Exit</string>
+    <string name="settings">Settings</string>
+
     <!-- GMap API Project 1 -->
     <string name="google_maps_key">AIzaSyA76tFsdnLY5RGAbfJY_n8oJ18X2iYjnOI</string>
 

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2px"
+    android:layout_marginTop="2px"
+    android:layout_marginRight="5px"
+    android:layout_marginBottom="2px"
+    android:background="@drawable/bg_button_dark"
+    android:orientation="vertical"
+    android:padding="2px">
+
+    <TextView
+        android:id="@+id/lblGPSTrackingTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2px"
+        android:text="GPS Tracking Service"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2px"
+        android:layout_marginRight="5px">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblGPSTrackingInterval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Interval (Min. time in [msec] between location updates)"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txtGPSTrackingInterval"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:background="@android:drawable/editbox_dropdown_light_frame"
+                android:text="5000"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblGPSTrackingMinDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Minimum distance in [m] between location updates"
+                android:textColor="@color/black" />
+            />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="99dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageButton
+                    android:id="@+id/btnGPSMinDistanceDec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".1"
+                    android:background="@drawable/bg_toolbar_border"
+                    app:srcCompat="@android:drawable/arrow_down_float" />
+
+                <TextView
+                    android:id="@+id/txtGPSTrackingMinDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:background="@android:drawable/editbox_dropdown_light_frame"
+                    android:editable="false"
+                    android:gravity="center_horizontal"
+                    android:numeric="integer"
+                    android:text="1"
+                    android:textColor="@color/black" />
+
+                <ImageButton
+                    android:id="@+id/btnGPSMinDistanceInc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".1"
+                    android:background="@drawable/bg_toolbar_border"
+                    app:srcCompat="@android:drawable/arrow_up_float" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+</android.widget.LinearLayout>

@@ -61,7 +61,7 @@ public class CellTower implements Parcelable {
         setMNC(mnc);
         setNetworkType(networkType);
         setProviderName(providerName);
-        mLocation = new CellTowerLocation();
+        mLocation = null;
     }
 
     /**
@@ -123,7 +123,10 @@ public class CellTower implements Parcelable {
      * @return  True / False
      */
     public boolean hasLocation() {
-        return ((mLocation!=null) && mLocation.getLatitude() != 0.000000f) && (mLocation.getLongitude() != 0.000000f) && (mLocation.getAccuracy() != 0);
+        return ((mLocation!=null) &&
+                (mLocation.getLatitude() != 0.000000f) &&
+                (mLocation.getLongitude() != 0.000000f) &&
+                (mLocation.getAccuracy() != 0));
     }
 
     /**

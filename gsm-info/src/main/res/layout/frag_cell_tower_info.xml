@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/frag_cell_tower_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:background="@android:color/transparent"
-                android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frag_cell_tower_info"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:layout_marginLeft="1dp"
-        android:layout_marginRight="1dp"
+        android:layout_height="258px"
         android:layout_marginTop="1dp"
-        android:gravity="top|bottom|left|right">
+        android:layout_marginBottom="1dp"
+        android:background="@android:color/transparent"
+        android:gravity="top|bottom|left|right"
+        android:orientation="horizontal"
+        android:visibility="visible">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/darkGray">
 
             <TextView
                 android:id="@+id/lblCurrentCellTowerInfo"
@@ -27,10 +29,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_weight="1"
-                android:background="@color/darkGray"
+                android:background="@android:color/transparent"
+                android:paddingLeft="2dp"
                 android:text="@string/current_celltower_info_title"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </TableRow>
 
@@ -44,14 +47,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/lightGray"
-                android:text="@string/cid_label"/>
+                android:paddingLeft="2dp"
+                android:text="@string/cid_label" />
 
             <TextView
                 android:id="@+id/txtCellId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/lightGray"/>
+                android:background="@color/lightGray"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/lblLocationAreaCode"
@@ -59,14 +64,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/lightGray"
-                android:text="@string/lac_label"/>
+                android:text="@string/lac_label" />
 
             <TextView
                 android:id="@+id/txtLocationAreaCode"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/lightGray"/>
+                android:background="@color/lightGray"
+                android:textColor="@color/black" />
 
         </TableRow>
 
@@ -74,29 +80,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                          xmlns:tools="http://schemas.android.com/tools"
-                          android:id="@+id/layoutInfoLine2"
-                          android:layout_width="match_parent"
-                          android:layout_height="wrap_content"
-                          android:layout_alignBottom="@+id/layoutInfoLine1"
-                          android:layout_weight="1"
-                          android:background="@android:color/transparent" -->
-
             <TextView
                 android:id="@+id/lblMobileNetworkOperator"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/lightGray"
-                android:text="@string/mcc_mnc_label"/>
+                android:paddingLeft="2dp"
+                android:text="@string/mcc_mnc_label" />
 
             <TextView
                 android:id="@+id/txtMobileNetworkOperator"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/lightGray"/>
+                android:background="@color/lightGray"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/lblSignalStrength"
@@ -104,16 +103,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/lightGray"
-                android:text="@string/sig_dbm_label"/>
+                android:text="@string/sig_dbm_label" />
 
             <TextView
                 android:id="@+id/txtSignalStrength"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/lightGray"/>
-
-            <!-- /LinearLayout -->
+                android:background="@color/lightGray"
+                android:textColor="@color/black" />
         </TableRow>
 
         <TableRow
@@ -126,14 +124,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/lightGray"
-                android:text="@string/network_label"/>
+                android:paddingLeft="2dp"
+                android:text="Network" />
 
             <TextView
                 android:id="@+id/txtNetworkType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/lightGray"/>
+                android:background="@color/lightGray"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/lblOperatorName"
@@ -141,15 +141,38 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/lightGray"
-                android:text="@string/operator_label"/>
+                android:text="Operator" />
 
             <TextView
                 android:id="@+id/txtOperatorName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/lightGray"/>
+                android:background="@color/lightGray"
+                android:textColor="@color/black" />
+        </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblCellTowerAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/lightGray"
+                android:paddingLeft="2dp"
+                android:text="@string/address_label" />
+
+            <TextView
+                android:id="@+id/txtCellTowerAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:background="@color/lightGray"
+                android:text="n.a"
+                android:textColor="@color/black" />
         </TableRow>
 
     </TableLayout>

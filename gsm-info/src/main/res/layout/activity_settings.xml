@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bw_gradient_background_light"
+    android:orientation="vertical"
+    tools:context=".MapActivity">
+
+    <include
+        layout="@layout/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:visibility="visible"/>
+
+
+        <FrameLayout
+            android:id="@+id/settings_unwiredlabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_button_dark" />
+
+        <FrameLayout
+            android:id="@+id/settings_googlemap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_button_dark" />
+
+        <FrameLayout
+            android:id="@+id/settings_gpstracking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_button_dark" />
+
+        <FrameLayout
+            android:id="@+id/settings_cell_tower_service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/bg_button_dark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:id="@+id/btnSaveSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal|center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="Save" />
+
+    </LinearLayout>
+
+</LinearLayout>

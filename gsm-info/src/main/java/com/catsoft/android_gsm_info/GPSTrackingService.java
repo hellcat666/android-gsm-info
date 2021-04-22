@@ -1,8 +1,10 @@
 package com.catsoft.android_gsm_info;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -16,6 +18,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 /**
  * Project: android-gsm-info
@@ -27,10 +31,18 @@ public class GPSTrackingService extends Service implements LocationListener {
 
     private static final String TAG = "GPSTrackingService";
 
+    public static final String INTERVAL = "interval";
+    public static final String MIN_DISTANCE = "min-distance";
+    public static final String GPS_TRACKING_SERVICE_READY = "gps-tracking-service-ready";
+    public static final String GPS_TRACKING_SERVICE_ERROR = "gps-tracking-service-error";
+    public static final String GPS_LOCATION_DATA = "gps-location-data";
+
+
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // Minimum Distance to change Updates in meters (10m)
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // Minimum Time between Updates in milliseconds (6000ms -> 1min)
 
-    private static Context mContext = null;              // Context
+    private static Context mContext = null;             // Context
+    private static Context mActivityContext = null;     // Context of the Main Activity that starts this Service (used by AlertDialog)
 
     private Looper mServiceLooper = null;               // Service Looper
     private ServiceHandler mServiceHandler = null;      // Service Handler
@@ -116,13 +128,15 @@ public class GPSTrackingService extends Service implements LocationListener {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 //        Log.i(TAG, "LocationService.onStartCommand(...)");
-
+        mActivityContext = getBaseContext();
+        mInterval = Integer.valueOf(intent.getExtras().get(INTERVAL).toString());
+        mMinDistance = Integer.valueOf(intent.getExtras().get(MIN_DISTANCE).toString());
         // call a new service handler. The service ID can be used to identify the service
         Message message = this.mServiceHandler.obtainMessage();
         message.arg1 = startId;
         this.mServiceHandler.sendMessage(message);
-
-        return START_NOT_STICKY;        // START_REDELIVER_INTENT;
+        start();
+        return START_STICKY;        // START_REDELIVER_INTENT;
     }
 
     @Override
@@ -131,6 +145,23 @@ public class GPSTrackingService extends Service implements LocationListener {
         turnGPSOff();
         this.mLocationManager.removeUpdates(this);
         super.onDestroy();
+    }
+
+    private void showGPSDisabledAlertToUser() {
+        Intent intent = new Intent(this, GPSTrackingDialog.class);
+        startActivity(intent);
+    }
+
+    public void start() {
+        Log.i(TAG, "GPSTrackingService.start()");
+//        if (!mProviderActive) { showGPSDisabledAlertToUser(); }
+        Intent anIntent = new Intent();
+        anIntent.setAction(GPS_TRACKING_SERVICE_READY);
+        mContext.sendBroadcast(anIntent);
+    }
+
+    public void stop() {
+        Log.i(TAG, "GPSTrackingService.stop()");
     }
 
     public void turnGPSOn() {
@@ -160,6 +191,7 @@ public class GPSTrackingService extends Service implements LocationListener {
         public void handleMessage(Message msg) {
             // Well calling mServiceHandler.sendMessage(message); from onStartCommand,
             // this method will be called.
+//            if (!mProviderActive) { showGPSDisabledAlertToUser(); }
 
             // Add your cpu-blocking activity here
         }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2px"
+    android:layout_marginTop="2px"
+    android:layout_marginRight="5px"
+    android:layout_marginBottom="2px"
+    android:background="@drawable/bg_button_dark"
+    android:orientation="vertical"
+    android:padding="2px">
+
+    <TextView
+        android:id="@+id/lblUnwiredLabsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2px"
+        android:text="Unwiredlabs Location Service"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="2px"
+        android:layout_marginRight="5px">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lblUwiredLabsUrl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Service Url"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txtUnwiredLabsUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:background="@android:drawable/editbox_dropdown_light_frame"
+                android:text="https://eu1.unwiredlabs.com/v2/process.php"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/lblUnwiredLabsToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Token"
+                android:textColor="@color/black" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/txtUnwiredLabsToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:background="@android:drawable/editbox_dropdown_light_frame"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</android.widget.LinearLayout>

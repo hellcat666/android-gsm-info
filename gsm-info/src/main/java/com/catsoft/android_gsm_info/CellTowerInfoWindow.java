@@ -46,7 +46,7 @@ public class CellTowerInfoWindow  implements GoogleMap.InfoWindowAdapter  {
         TextView txtMnc = mView.findViewById(R.id.txtMnc);
         TextView txtLat = mView.findViewById(R.id.txtLat);
         TextView txtLng = mView.findViewById(R.id.txtLng);
-        TextView txtAddress = mView.findViewById(R.id.txtAddress);
+        TextView txtAddress = mView.findViewById(R.id.txtCellTowerAddress);
         MapCellTower mapCellTower = (MapCellTower)marker.getTag();
         mTitle.setText(mapCellTower.getTitle());
 

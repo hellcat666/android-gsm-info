@@ -1,0 +1,148 @@
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2px"
+    android:layout_marginTop="2px"
+    android:layout_marginRight="5px"
+    android:layout_marginBottom="2px"
+    android:background="@drawable/bg_button_dark"
+    android:orientation="vertical"
+    android:padding="2px">
+
+    <TextView
+        android:id="@+id/lblGoogleMapTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2px"
+        android:text="Google Map"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2px"
+        android:layout_marginRight="5px">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblGoogleMapKey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="API Key"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/txtGoogleMapKey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:background="@android:drawable/editbox_dropdown_light_frame"
+                android:inputType="number|textPersonName"
+                android:textColor="@color/black"
+                android:text="AIzaSyA76tFsdnLY5RGAbfJY_n8oJ18X2iYjnOI"
+                android:textSize="14sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblGoogleMapType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Map Type"
+                android:textColor="@color/black" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_dark">
+
+            <Spinner
+                android:id="@+id/spinGoogleMapTypes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:background="@android:drawable/editbox_dropdown_light_frame"
+                android:entries="@array/googleMapTypesArray"
+                android:popupBackground="@color/white"
+                android:theme="@style/Spinner" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/lblGoogleMapDefaulotZoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Default Zoom"
+                android:textColor="@color/black" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="99dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <ImageButton
+                    android:id="@+id/btnGoogleMapZoomDec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".1"
+                    android:background="@drawable/bg_toolbar_border"
+                    app:srcCompat="@android:drawable/arrow_down_float" />
+
+                <TextView
+                    android:id="@+id/txtGoogleMapDefaultZoom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".5"
+                    android:background="@android:drawable/editbox_dropdown_light_frame"
+                    android:duplicateParentState="false"
+                    android:editable="false"
+                    android:gravity="center_horizontal"
+                    android:text="13"
+                    android:textColor="@color/black" />
+
+                <ImageButton
+                    android:id="@+id/btnGoogleMapZoomInc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".1"
+                    android:background="@drawable/bg_toolbar_border"
+                    app:srcCompat="@android:drawable/arrow_up_float" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+
+    </TableLayout>
+
+</android.widget.LinearLayout>

@@ -27,7 +27,7 @@ import static android.Manifest.permission.READ_PHONE_STATE;
 
 public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
 
-    private final static String TAG = "GSMInfo-CellTowerInfoFragment";
+    private final static String TAG = "CellTowerInfoFragment";
 
     private static final String FRAG_CELLTOWER_INFO = "frag-celltower-info";
     private static final String FRAGMENT_INFO_READY = "fragment-info-ready";
@@ -55,18 +55,37 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
     private IntentFilter mAppFilter = null;
     private boolean mReceiverRegistered = false;
 
-    private TextView mCellIdTextView;
-    private TextView mLocationAreaCodeTextView;
-    private TextView mMobileNetworkOperatorTextView;
-    private TextView mSignalStrengthTextView;
-    private TextView mNetworkTypeTextView;
-    private TextView mOperatorNameTextView;
+    private TextView txtCellId;
+    private TextView txtLocationAreaCode;
+    private TextView txtMobileNetworkOperator;
+    private TextView txtSignalStrength;
+    private TextView txtNetworkType;
+    private TextView txtOperatorName;
+    private TextView txtCellTowerAddress;
+
+    private int mNetworkType = 0;
+    public int getNetworkType() { return mNetworkType; }
+    public void setNetworkType(int mNetworkType) { 
+        this.mNetworkType = mNetworkType;
+        switch(mNetworkType) {
+            default:
+                /*
+                txtNetworkType.setText("GSM");
+                 */
+                break;
+        }
+    }
 
     private  CellTower mCurrentCellTower;
     private int mSignalStrength = -1;
 
+
+    public static interface OnCellTowerInfoFragmentCompleteListener { public abstract void onCellTowerInfoFragmentComplete(); }
+    private OnCellTowerInfoFragmentCompleteListener mListener;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.i(TAG,"onCreate()");
         super.onCreate(savedInstanceState);
         mContext = this.getContext();
         setRetainInstance(true);
@@ -82,13 +101,15 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mCellIdTextView = getActivity().findViewById(R.id.txtCellId);
-        mLocationAreaCodeTextView = getActivity().findViewById(R.id.txtLocationAreaCode);
-        mMobileNetworkOperatorTextView = getActivity().findViewById(R.id.txtMobileNetworkOperator);
-        mSignalStrengthTextView = getActivity().findViewById(R.id.txtSignalStrength);
-        mNetworkTypeTextView = getActivity().findViewById(R.id.txtNetworkType);
-        mOperatorNameTextView = getActivity().findViewById(R.id.txtOperatorName);
+        txtCellId = getActivity().findViewById(R.id.txtCellId);
+        txtLocationAreaCode = getActivity().findViewById(R.id.txtLocationAreaCode);
+        txtMobileNetworkOperator = getActivity().findViewById(R.id.txtMobileNetworkOperator);
+        txtSignalStrength = getActivity().findViewById(R.id.txtSignalStrength);
+        txtNetworkType = getActivity().findViewById(R.id.txtNetworkType);
+        txtOperatorName = getActivity().findViewById(R.id.txtOperatorName);
+        txtCellTowerAddress = getActivity().findViewById(R.id.txtCellTowerAddress);
         mSavedInstanceState = savedInstanceState;
+        mListener.onCellTowerInfoFragmentComplete();
     }
 
     @Override
@@ -96,6 +117,18 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
         super.onSaveInstanceState(outState);
         outState.putBoolean(RX_REGISTERED, mReceiverRegistered);
         outState.putParcelable(CELL_INFO, mCurrentCellTower);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+        try {
+            this.mListener = (OnCellTowerInfoFragmentCompleteListener)context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnCellTowerInfoFragmentCompleteListener");
+        }
     }
 
     @Override
@@ -207,40 +240,42 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
     }
 
     protected void clearCellTowerInfo() {
-        mCellIdTextView.setText("");
-        mLocationAreaCodeTextView.setText("");
-        mMobileNetworkOperatorTextView.setText("");
-        mSignalStrengthTextView.setText("");
+        txtCellId.setText("");
+        txtLocationAreaCode.setText("");
+        txtMobileNetworkOperator.setText("");
+        txtSignalStrength.setText("");
     }
 
     protected void refreshCellTowerInfo() {
         if (mCurrentCellTower != null) {
-            mCellIdTextView.setText(String.valueOf(mCurrentCellTower.getCId()));
-            mLocationAreaCodeTextView.setText(String.valueOf(mCurrentCellTower.getLac()));
-            mMobileNetworkOperatorTextView.setText(String.valueOf(mCurrentCellTower.getMCC() + " / " + mCurrentCellTower.getMNC()));
+            txtCellId.setText(String.valueOf(mCurrentCellTower.getCId()));
+            txtLocationAreaCode.setText(String.valueOf(mCurrentCellTower.getLac()));
+            txtMobileNetworkOperator.setText(String.valueOf(mCurrentCellTower.getMCC() + " / " + mCurrentCellTower.getMNC()));
             if(mSignalStrength==-1) {
-                mSignalStrengthTextView.setText(NOT_AVAILABLE);
+                txtSignalStrength.setText(NOT_AVAILABLE);
             }
             else {
-                mSignalStrengthTextView.setText(String.valueOf(mSignalStrength));
+                txtSignalStrength.setText(String.valueOf(mSignalStrength));
                 if (mSignalStrength < -109) {
-                    mSignalStrengthTextView.setTextColor(ContextCompat.getColor(getActivity(), R.color.darkRed));
+                    txtSignalStrength.setTextColor(ContextCompat.getColor(getActivity(), R.color.darkRed));
                 } else if ((mSignalStrength > -109) && (mSignalStrength < -53)) {
-                    mSignalStrengthTextView.setTextColor(ContextCompat.getColor(getActivity(), R.color.blue));
+                    txtSignalStrength.setTextColor(ContextCompat.getColor(getActivity(), R.color.blue));
                 } else if (mSignalStrength > -53) {
-                    mSignalStrengthTextView.setTextColor(ContextCompat.getColor(getActivity(), R.color.darkGreen));
+                    txtSignalStrength.setTextColor(ContextCompat.getColor(getActivity(), R.color.darkGreen));
                 }
             }
-            mNetworkTypeTextView.setText(mCurrentCellTower.getNetworkType());
-            mOperatorNameTextView.setText(mCurrentCellTower.getProviderName());
+            txtNetworkType.setText((mCurrentCellTower.getNetworkType().isEmpty()) ? "GSM" : mCurrentCellTower.getNetworkType());
+            txtOperatorName.setText(mCurrentCellTower.getProviderName());
+//            String _address = (mCurrentCellTower.getLocation()!=null) ? ((mCurrentCellTower.getLocation().getAddress().isEmpty()) ? NOT_AVAILABLE : mCurrentCellTower.getLocation().getAddress()) : NOT_AVAILABLE;
+//            txtCellTowerAddress.setText(_address);
         }
         else {
-            mCellIdTextView.setText(NOT_AVAILABLE);
-            mLocationAreaCodeTextView.setText(NOT_AVAILABLE);
-            mMobileNetworkOperatorTextView.setText(NOT_AVAILABLE + " / " + NOT_AVAILABLE);
-            mSignalStrengthTextView.setText(NOT_AVAILABLE);
-            mNetworkTypeTextView.setText(NOT_AVAILABLE);
-            mOperatorNameTextView.setText(NOT_AVAILABLE);
+            txtCellId.setText(NOT_AVAILABLE);
+            txtLocationAreaCode.setText(NOT_AVAILABLE);
+            txtMobileNetworkOperator.setText(NOT_AVAILABLE + " / " + NOT_AVAILABLE);
+            txtSignalStrength.setText(NOT_AVAILABLE);
+            txtNetworkType.setText(NOT_AVAILABLE);
+            txtOperatorName.setText(NOT_AVAILABLE);
         }
     }
 
@@ -254,26 +289,26 @@ public class CellTowerInfoFragment extends android.support.v4.app.Fragment {
 
             switch(intent.getAction()) {
                 case FRAGMENT_INFO_READY:
-//                    Log.i(TAG, "mMessageReceiver.onReceive('fragment-info-ready')");
+                    Log.i(TAG, "mMessageReceiver.onReceive('fragment-info-ready')");
                     requestCurrentCellTower();
                     break;
                 case CELL_INFO_CHANGED:
-//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-info-changed')");
+                    Log.i(TAG, "mMessageReceiver.onReceive('cell-info-changed')");
                     mCurrentCellTower = (CellTower) intent.getExtras().get(CELL);
                     refresh();
                     break;
                 case CELL_SIGNAL_STRENGTH_CHANGED:
-//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-signal-strength-changed')");
+                    Log.i(TAG, "mMessageReceiver.onReceive('cell-signal-strength-changed')");
                     mSignalStrength = (int) intent.getExtras().get(CELL_SIGNAL_STRENGTH);
                     refresh();
                     break;
                 case CELL_DETECTED:
-//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-detected')");
+                    Log.i(TAG, "mMessageReceiver.onReceive('cell-detected')");
                     mCurrentCellTower = (CellTower) intent.getExtras().get(CELL);
                     refresh();
                     break;
                 case CELL_LOCATION_CHANGED:
-//                    Log.i(TAG, "mMessageReceiver.onReceive('cell-location-changed')");
+                    Log.i(TAG, "mMessageReceiver.onReceive('cell-location-changed')");
                     mCurrentCellTower = (CellTower) intent.getExtras().get(CELL);
                     refresh();
                     break;
